@@ -1,11 +1,10 @@
-import time
 import unittest
+from time import sleep
 from random import choice
 from selenium import webdriver
 from string import ascii_uppercase
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-
 
 class OfferCreate(unittest.TestCase):
 
@@ -19,7 +18,7 @@ class OfferCreate(unittest.TestCase):
         driver.find_element_by_link_text('Login').click()
         driver.find_element_by_id('LoginForm_username').send_keys(input("Введите email: "))
         driver.find_element_by_id('LoginForm_password').send_keys(input("Введите пароль: "), Keys.ENTER)
-        time.sleep(3)
+        sleep(3)
         try:
             driver.find_element_by_xpath("//*[contains(text(), 'Error!')]")
         except Exception:
@@ -43,12 +42,13 @@ class OfferCreate(unittest.TestCase):
         driver.find_element_by_xpath('//*[@id="yw0"]/div[1]/div[1]/div/span').click()
         driver.find_element_by_xpath('/html/body/span/span/span[1]/input').send_keys(random_offer_name, Keys.ENTER)
         driver.find_element_by_css_selector('button.btn').click()
-        time.sleep(10)
+        sleep(10)
         offer_name = driver.find_element_by_xpath('//*[@id="yw1"]/table/tbody/tr/td[4]/a').text
         if offer_name == random_offer_name:
             print('Offer created successfully')
         else:
             print('Error. Creating failed')
+        driver.quit()
 
 def random_word(m):
     return ''.join(choice(ascii_uppercase) for i in range(m))
