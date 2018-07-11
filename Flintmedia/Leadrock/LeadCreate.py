@@ -2,13 +2,19 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 import unittest
+import configparser
 from time import sleep
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import re
 
 class LeadCreate(unittest.TestCase):
 
+    #Driver setup
     def setUp(self):
-        self.driver = webdriver.Chrome("C:\\drivers\\chromedriver.exe")
+        key = 'http://localhost:4444/wd/hub'
+        self.driver = webdriver.Remote(
+            command_executor=key,
+            desired_capabilities=DesiredCapabilities.CHROME)
         self.driver.maximize_window()
 
     def test_leadrock(self):
